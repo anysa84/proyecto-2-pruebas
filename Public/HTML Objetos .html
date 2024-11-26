@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./estilos/form.css">
+    <title>OBJETOS</title>
+</head>
+<body>
+    <div class="Titulo"> USUARIO</Div>
+
+    <div id="Objetos"></div>
+
+ <form id="userForm">
+        <p>Selecciona tu rango de edad:</p>
+        <select id="edad">
+            <option value="menor18">Menor a 18 años</option>
+            <option value="19-30">19-30 años</option>
+            <option value="31-45">31-45 años</option>
+            <option value="46-55">46-55 años</option>
+            <option value="mayor56">Mayor a 56 años</option>
+        </select>
+
+        
+    </form>
+    <form>
+        <p>¿Cuál es tu género?</p>
+        <input type="radio" id="femenino" name="genero" value="Femenino">
+        <label for="femenino">Femenino</label><br>
+        <input type="radio" id="masculino" name="genero" value="Masculino">
+        <label for="masculino">Masculino</label><br>
+        <input type="radio" id="noBinario" name="genero" value="No binario">
+        <label for="noBinario">Otro</label><br>
+    </form>
+
+
+
+    <form id="Enviar "><input type="submit" value="Enviar"> </form>
+    
+
+
+
+
+    <script src="./javaScript/Objetos.js"></script> 
+</body>
+</html>
