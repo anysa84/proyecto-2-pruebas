@@ -70,12 +70,14 @@ const tableBody = document.getElementById("songsTable").querySelector("tbody");
 
 // Cargar canciones
 async function loadSongs() {
-  const response = await fetch("https://proyectofinal2-f11b.onrender.com/songs");
-  const songs = await response.json();
-  tableBody.innerHTML = "";
-  songs.forEach((song) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
+  try {
+    const response = await fetch("https://proyectofinal2-f11b.onrender.com/songs");
+    if (!response.ok) throw new Error('Error al cargar las canciones');
+    const songs = await response.json();
+    tableBody.innerHTML = "";
+    songs.forEach((song) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
         <td>${song.id}</td>
         <td>${song.title}</td>
         <td>${song.album}</td>
@@ -85,9 +87,12 @@ async function loadSongs() {
         <td>
           <button onclick="deleteSong('${song._id}')">Eliminar</button>
           </td>
-    `;
-    tableBody.appendChild(row);
-  });
+      `;
+      tableBody.appendChild(row);
+    });
+  } catch (error) {
+    console.error('Error al cargar las canciones:', error);
+  }
 }
 
 // Guardar canción
@@ -99,25 +104,35 @@ form.addEventListener("submit", async (e) => {
     song[key] = value;
   });
 
-  const response = await fetch("https://proyectofinal2-f11b.onrender.com/songs", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(song),
-  });
+  try {
+    const response = await fetch("https://proyectofinal2-f11b.onrender.com/songs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(song),
+    });
 
-  if (response.ok) {
-    alert('Usuario registrado con éxito');
-    form.reset();
-    loadSongs();
-  } else {
+    if (response.ok) {
+      alert('Usuario registrado con éxito');
+      form.reset();
+      loadSongs();
+    } else {
+      alert('Hubo un error al registrar al usuario');
+    }
+  } catch (error) {
+    console.error('Error al guardar la canción:', error);
     alert('Hubo un error al registrar al usuario');
   }
 });
 
 // Eliminar canción
 async function deleteSong(id) {
-  await fetch(`https://proyectofinal2-f11b.onrender.com/songs/${id}`, { method: "DELETE" });
-  loadSongs();
+  try {
+    const response = await fetch(`https://proyectofinal2-f11b.onrender.com/songs/${id}`, { method: "DELETE" });
+    if (!response.ok) throw new Error('Error al eliminar la canción');
+    loadSongs();
+  } catch (error) {
+    console.error('Error al eliminar la canción:', error);
+  }
 }
 
 // Inicializar
