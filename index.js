@@ -34,6 +34,35 @@ const miURL = process.env.MONGO_URI || "mongodb+srv://magnus87:root1234@intro.tu
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Middleware
+app.use(express.static(path.join(__dirname, "./public")));
+app.use(cors());
+app.use(bodyParser.json());
+app.disable("x-powered-by"); // Oculta el nombre de la biblioteca Express
+
+// Conectar a MongoDB
+mongoose.connect(miURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log("Conectado a MongoDB Atlas"))
+.catch((error) => console.error("Error al conectar con MongoDB Atlas:", error));
+
+// Middleware para Rutas
+const userRoute = require("./user.route");
+const albumRoute = require("./album.route");
+
+app.use("/api/user", userRoute); // Rutas para usuarios
+app.use("/api/album", albumRoute); // Rutas para álbumes
+
+// Ejemplo de ruta adicional
+app.get("/", (req, res) => {
+  res.send("¡Bienvenido a la API!");
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
 
 
 
@@ -42,7 +71,9 @@ const PORT = process.env.PORT || 3001;
 
 
 
-app.use(express.static(path.join(__dirname,"./Back/in.json")))
+dotenv.config();
+
+app.use(express.static(path.join(__dirname,"./Public")))
 
 // Middleware
 app.use(cors());
