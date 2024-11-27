@@ -3,7 +3,7 @@ const tableBody = document.getElementById("songsTable").querySelector("tbody");
 
 // Cargar canciones
 async function loadSongs() {
-  const response = await fetch("http://localhost:3001/songs");
+  const response = await fetch( "mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro" );
   const songs = await response.json();
   tableBody.innerHTML = "";
   songs.forEach((song) => {
@@ -33,7 +33,7 @@ form.addEventListener("submit", async (e) => {
     song[key] = value;
   });
 
-   const response = await fetch("http://localhost:3001/songs", {
+   const response = await fetch(" mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(song),
@@ -54,7 +54,7 @@ form.addEventListener("submit", async (e) => {
 
 // Eliminar canción
 async function deleteSong(id) {
-  await fetch(`http://localhost:3001/songs/${id}`, { method: "DELETE" });
+  await fetch(`mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro`, { method: "DELETE" });
   loadSongs();
 }
 
