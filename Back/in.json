@@ -1,0 +1,38 @@
+{
+    "name": "proyect-01",
+    "version": "0.0.0",
+    "description": "Plataforma disco",
+    "main": "server.js",
+    "type": "commonjs",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "node --watch server.js",
+      "start": "node server.js"
+    },
+    "engines": {
+      "node": ">=14.20.1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro"
+    },
+    "keywords": [
+      "node",
+      "express",
+      "mongoDB"
+    ],
+    "author": "Mauricio Cox",
+    "license": "MIT",
+    "bugs": {
+      "url": "mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro"
+    },
+    "homepage": "mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro",
+    "dependencies": {
+      "bcrypt": "^5.1.1",
+      "cors": "2.8.5",
+      "dotenv": "^16.4.5",
+      "express": "^4.21.0",
+      "jsonwebtoken": "^9.0.2",
+      "mongoose": "8.7.0"
+    }
+  }
