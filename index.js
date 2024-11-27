@@ -6,6 +6,10 @@ const path = require("path");
 const dotenv = require('dotenv');
 const miURL = "mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro";
 
+const route = express.Router();
+
+const userRoute = require("./user.route");
+const albumRoute = require("./album.route");
 
 //
 
