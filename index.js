@@ -1,22 +1,75 @@
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const bodyParser = require("body-parser");
+// const cors = require("cors");
+// const path = require("path");
+// const dotenv = require('dotenv');
+// const miURL = "mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro";
+
+// const route = express.Router();
+
+// const userRoute = require("./user.route");
+// const albumRoute = require("./album.route");
+
+// //
+
+
+
+// const app = express();
+// const PORT = 3001;
+
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
 const dotenv = require('dotenv');
-const miURL = "mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro";
 
-const route = express.Router();
+// Cargar las variables de entorno desde el archivo .env
+dotenv.config();
 
+const miURL = process.env.MONGO_URI || "mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro";
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Middleware
+app.use(express.static(path.join(__dirname, "./public")));
+app.use(cors());
+app.use(bodyParser.json());
+app.disable("x-powered-by"); // Oculta el nombre de la biblioteca Express
+
+// Conectar a MongoDB
+mongoose.connect(miURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log("Conectado a MongoDB Atlas"))
+.catch((error) => console.error("Error al conectar con MongoDB Atlas:", error));
+
+// Middleware para Rutas
 const userRoute = require("./user.route");
 const albumRoute = require("./album.route");
 
-//
+app.use("/api/user", userRoute); // Rutas para usuarios
+app.use("/api/album", albumRoute); // Rutas para álbumes
+
+// Ejemplo de ruta adicional
+app.get("/", (req, res) => {
+  res.send("¡Bienvenido a la API!");
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
 
 
 
-const app = express();
-const PORT = 3001;
+
+
+
+
 
 dotenv.config();
 
@@ -40,7 +93,7 @@ app.use(
     origin: (origin, callback) => {
       const ACCEPTED_ORIGINS = [
         "https://proyectofinal2-f11b.onrender.com",
-//        "http://localhost:3001",
+        "http://localhost:3001",
       ];
 
       if (ACCEPTED_ORIGINS.includes(origin)) {
