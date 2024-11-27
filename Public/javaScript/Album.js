@@ -54,7 +54,7 @@ form.addEventListener("submit", async (e) => {
 
 // Eliminar canción
 async function deleteSong(id) {
-  await fetch(`mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro`, { method: "DELETE" });
+  await fetch(`http://localhost:3001/songs/${id}`, { method: "DELETE" });
   loadSongs();
 }
 
